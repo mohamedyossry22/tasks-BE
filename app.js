@@ -11,25 +11,9 @@ const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerDocument = require('./swagger.json');
 require("dotenv").config();
 const port = process.env.PORT;
-const options = {
-	definition: {
-		openapi: "3.0.0",
-		info: {
-			title: "Library API",
-			version: "1.0.0",
-			description: "A simple Express Library API",
-		},
-		servers: [
-			{
-				url: "http://localhost:8080",
-			},
-		],
-	},
-	apis: ["./routes/*.js"],
-};
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'files');
+    cb(null, 'images');
   },
   filename: (req, file, cb) => {
     cb(null,  file.originalname);
@@ -55,7 +39,7 @@ const fileFilter = (req, file, cb) => {
   app.use(
     multer({ storage: fileStorage, fileFilter: fileFilter }).single('image')
   );
-  app.use('/files', express.static(path.join(__dirname, 'files')));
+  app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use((req , res , next) => {
     res.setHeader("Access-Control-Allow-Origin" , "*")
     res.setHeader("Access-Control-Allow-Methods" , "GET , POST , PUT , PATCH , DELETE")
