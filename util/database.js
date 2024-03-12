@@ -7,5 +7,4 @@ const DBConcction = callback => { mongoose.connect(process.env.MONGO_URL).then( 
         console.log(err);
     })
 }
-
 exports.DBConcction = DBConcction;
